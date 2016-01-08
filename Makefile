@@ -3,7 +3,7 @@ NAME = fdf
 CC = gcc
 LFTPATCH = ./libft/
 LMLXPATCH = ./minilibx/
-LIBS = -L $(LFTPATCH) -lft -L $(LMLXPATCH) -lmlx -framework OpenGL -framework AppKit
+LIBS = -L $(LMLXPATCH) -lmlx -framework OpenGL -framework AppKit -L $(LFTPATCH) -lft 
 FLAGS = -Wall -Werror -Wextra
 SRC = main.c \
 
@@ -16,8 +16,7 @@ all: $(NAME)
 $(NAME):
 	make -C $(LFTPATCH)
 	make -C $(LMLXPATCH)
-	$(CC) $(FLAGS) -c $(SRC)
-	$(CC) $(OBJ) $(LIBS) -o $(NAME)
+	$(CC) $(SRC) $(FLAGS) -L. -lft -o $(NAME)
 
 clean:
 	rm -f $(OBJ)

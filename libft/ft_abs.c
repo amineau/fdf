@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   ft_abs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/07 15:58:35 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/08 14:44:03 by amineau          ###   ########.fr       */
+/*   Created: 2016/01/08 14:09:21 by amineau           #+#    #+#             */
+/*   Updated: 2016/01/08 14:10:16 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define LIBFT_H
-# include "libft.h"
-# include "minilibx/mlx.h"
-# include <math.h>
+#include "libft.h"
 
-typedef struct	s_env
+int	ft_abs(int n)
 {
-	int		x0;
-	int		y0;
-	int		x1;
-	int		y1;
-	void	*mlx;
-	void	*win;
-}				t_env;
-
-#endif
+	if (n < 0)
+		n = -n;
+	return (n);
+}

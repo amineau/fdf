@@ -5,25 +5,32 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/07 16:02:28 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/08 13:26:49 by amineau          ###   ########.fr       */
+/*   eeated: 2016/01/07 16:02:28 by amineau           #+#    #+#             */
+/*   Updated: 2016/01/08 14:48:32 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include <stdio.h>
-void	segment(t_coor *cr, t_env *e, int couleur)
+void	segment(t_env *e, int couleur)
 {
-	int dx = cr->x0 - cr->x0;
-	int dy = cr->y1 - cr->y0;
-	int dp = 2 * dy - dx;
-	int deltaE = 2 * dy;
-	int deltaNE = 2 * (dy - dx);
-	int x = cr->x0;
-	int y = cr->y0;
+	int dx;
+	int dy;
+	int dp;
+	int deltaE;
+	int deltaNE;
+	int x;
+	int y;
 	
+	x = e->x0;
+	y = e->y0;
+	dx = ft_abs(e->x1 - e->x0);
+	dy = ft_abs(e->y1 - e->y0);
+	dp = 2 * dy - dx;
+	deltaE = 2 * dy;
+	deltaNE = 2 * (dy - dx);
 	mlx_pixel_put(e->mlx, e->win, x, y, couleur);
-	while (x < cr->x1)
+	while (x < e->x1)
 	{
 		if (dp <= 0)
 		{
@@ -51,7 +58,18 @@ int		mouse_hook(int button, int x, int y, t_env *e)
 {
 	if (button == 1)
 	{
-		mlx_pixel_put(e->mlx, e->win, x, y, 0x00ffff);
+		if (e->x0)
+		{
+			e->x1 = x;
+			e->y1 = y;
+			segment(e, 0x00ffff);
+			ft_putchar('\n');
+		}
+	}
+	if (button == 2)
+	{
+		e->x0 = x;
+		e->y0 = y;
 	}
 	printf("button = %d\nx = %d || y = %d\n", button, x, y);
 	return (0);
@@ -68,6 +86,10 @@ int		main()
 {
 	t_env	e;
 
+	e.x0 = 0;
+	e.x1 = 0;
+	e.y0 = 0;
+	e.y1 = 0;
 	e.mlx = mlx_init();
 	e.win = mlx_new_window(e.mlx, 1000, 1000, "Fdf");
 	mlx_expose_hook(e.win, expose_hook, &e);
