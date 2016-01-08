@@ -14,12 +14,10 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME):
-	make re -C $(LFTPATCH)
-	make re -C $(LMLXPATCH)
+	make -C $(LFTPATCH)
+	make -C $(LMLXPATCH)
 	$(CC) $(FLAGS) -c $(SRC)
 	$(CC) $(OBJ) $(LIBS) -o $(NAME)
-	make fclean -C $(LFTPATCH)
-	make clean -C $(LMLXPATCH)
 
 clean:
 	rm -f $(OBJ)

@@ -6,23 +6,24 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/07 16:02:28 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/07 18:19:17 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/08 13:26:49 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void TraceSegmentPointMilieu (s_coor cr, unsigned char couleur)
+#include <stdio.h>
+void	segment(t_coor *cr, t_env *e, int couleur)
 {
-	int dx = cr.x0 - cr.x0;
-	int dy = cr.y1 - cr.y0;
+	int dx = cr->x0 - cr->x0;
+	int dy = cr->y1 - cr->y0;
 	int dp = 2 * dy - dx;
 	int deltaE = 2 * dy;
 	int deltaNE = 2 * (dy - dx);
-	int x = cr.x0;
-	int y = cr.y0;
-		mlx_pixel_put(mlx, win, x, y, 0x00ffff);
-	while (x < x1)
+	int x = cr->x0;
+	int y = cr->y0;
+	
+	mlx_pixel_put(e->mlx, e->win, x, y, couleur);
+	while (x < cr->x1)
 	{
 		if (dp <= 0)
 		{
@@ -35,27 +36,43 @@ void TraceSegmentPointMilieu (s_coor cr, unsigned char couleur)
 			x++;
 			y++;
 		}
-		mlx_pixel_put(mlx, win, x, y, 0x00ffff);
+		mlx_pixel_put(e->mlx, e->win, x, y, 0x00ffff);
 	}
 }
 
-int main()
+int		key_hook(int keycode, t_env *e)
 {
-	void	*mlx;
-	void	*win;
-	int		i;
-	int		y;
-
-	i = 200;
-	y = 200;
-	mlx = mlx_init();
-	win = mlx_new_window(mlx, 1000, 1000, "Fdf");
-	while (++i < 800)
+	void	*i;
+	i = e->win;
+	printf("keycode = %d\n", keycode);
+	return (0);
+}
+int		mouse_hook(int button, int x, int y, t_env *e)
+{
+	if (button == 1)
 	{
-		y = 200;
-		while (++y < 800)
-			mlx_pixel_put(mlx, win, i, y, 0x00ffff);
+		mlx_pixel_put(e->mlx, e->win, x, y, 0x00ffff);
 	}
-	mlx_loop(mlx);
+	printf("button = %d\nx = %d || y = %d\n", button, x, y);
+	return (0);
+}
+
+int		expose_hook(t_env *e)
+{
+	void	*i;
+	i = e->win;
+	return (0);
+}
+
+int		main()
+{
+	t_env	e;
+
+	e.mlx = mlx_init();
+	e.win = mlx_new_window(e.mlx, 1000, 1000, "Fdf");
+	mlx_expose_hook(e.win, expose_hook, &e);
+	mlx_mouse_hook(e.win, mouse_hook, &e);
+	mlx_key_hook(e.win, key_hook, &e);
+	mlx_loop(e.mlx);
 	return (0);
 }
