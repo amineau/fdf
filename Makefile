@@ -16,7 +16,8 @@ all: $(NAME)
 $(NAME):
 	make -C $(LFTPATCH)
 	make -C $(LMLXPATCH)
-	$(CC) $(SRC) $(FLAGS) -L. -lft -o $(NAME)
+	$(CC) $(FLAGS) -c $(SRC)
+	$(CC) $(OBJ) $(LIBS) -o $(NAME)
 
 clean:
 	rm -f $(OBJ)
