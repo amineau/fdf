@@ -6,13 +6,13 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/05 16:36:01 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/05 16:38:41 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/10 16:01:51 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strclnjoin(char const *s1, char const *s2)
 {
 	char	*dst;
 	int		i;

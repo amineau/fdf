@@ -6,6 +6,9 @@ LMLXPATCH = ./minilibx/
 LIBS = -L$(LMLXPATCH) -lmlx -framework OpenGL -framework AppKit -L$(LFTPATCH) -lft 
 FLAGS = -Wall -Werror -Wextra
 SRC = main.c \
+	  hook.c \
+	  segment.c \
+	  recup_coor.c
 
 OBJ = $(SRC:.c=.o)
 
