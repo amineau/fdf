@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/07 15:58:35 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/10 18:28:26 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/10 22:05:53 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ typedef struct	s_env
 	int		y0;
 	int		x1;
 	int		y1;
+	size_t	size_x;
+	size_t	size_y;
 	void	*mlx;
 	void	*win;
 }				t_env;
@@ -43,6 +45,9 @@ typedef struct	s_coor
 	int				*tab;
 	int				start;
 	int				lenght;
+	float			x;
+	float			y;
+	float			x;
 	struct s_coor	*next;
 }				t_coor;
 

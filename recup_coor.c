@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 15:17:40 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/10 19:13:59 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/10 21:33:30 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,19 @@ int		space_digit(char *ptr, size_t *i)
 	j = *i;
 		while (ptr[j] != ' ')
 			j++;
-		space++;
-		while (ptr[j] == ' ')
+		while (ptr[j] && ptr[j] == ' ')
+		{
+			space++;
+			j++;
+		}
+		while (ptr[j] && ptr[j] != ' ')
 		{
 			space++;
 			j++;
 		}
 	return (space);
 }
-#include <stdio.h>
+
 t_coor	*line_create(char *ptr)
 {
 	size_t 	i;
@@ -49,8 +53,7 @@ t_coor	*line_create(char *ptr)
 	cr->lenght = 0;
 	lenght = ft_strlen(ptr);
 	space = space_digit(ptr, &i);
-		ft_putnbrendl(i);
-	cr->start = i / space; //A checker
+	cr->start = (i + 1) / space;
 	if (!(cr->tab = ft_memalloc(sizeof(int) * lenght / space)))
 		return (NULL);
 	while (i < lenght)
@@ -91,6 +94,7 @@ t_coor	**recup(char *str)
 	while (get_next_line(fd, &ptr) == 1)
 	{
 		line_add(cr, ptr);
+	ft_strdel(&ptr);
 	}
 	close(fd);
 	return (cr);
