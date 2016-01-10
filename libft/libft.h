@@ -6,7 +6,7 @@
 /*   By: amineau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 13:21:26 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/10 11:28:10 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/10 18:08:52 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 # include <unistd.h>
 # include <string.h>
 # include <stdlib.h>
-# include <sys/types.h>
-# include <sys/uio.h>
 # include <fcntl.h>
 
 # define BUFF_SIZE 10

@@ -6,24 +6,92 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 15:17:40 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/10 16:11:26 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/10 19:13:59 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-char	**recup(char *str)
+int		space_digit(char *ptr, size_t *i)
+{
+	int space;
+	int	j;
+
+	space = 0;
+	if (ptr[*i] == ' ')
+	{
+		while (ptr[*i] == ' ')
+			(*i)++;
+	}
+	j = *i;
+		while (ptr[j] != ' ')
+			j++;
+		space++;
+		while (ptr[j] == ' ')
+		{
+			space++;
+			j++;
+		}
+	return (space);
+}
+#include <stdio.h>
+t_coor	*line_create(char *ptr)
+{
+	size_t 	i;
+	size_t	lenght;
+	int		space;
+	t_coor	*cr;
+
+	if (!(cr = ft_memalloc(sizeof(t_coor))))
+		return (NULL);
+	i = 0;
+	space = 0;
+	cr->lenght = 0;
+	lenght = ft_strlen(ptr);
+	space = space_digit(ptr, &i);
+		ft_putnbrendl(i);
+	cr->start = i / space; //A checker
+	if (!(cr->tab = ft_memalloc(sizeof(int) * lenght / space)))
+		return (NULL);
+	while (i < lenght)
+	{
+		cr->tab[cr->lenght] = ft_atoi(&ptr[i]);
+		cr->lenght++;
+		i += space;
+	}
+	cr->next = NULL;
+	return (cr);
+}
+
+void	line_add(t_coor **cr, char *ptr)
+{
+	t_coor	*tmp;
+
+	if (*cr)
+	{
+		tmp = *cr;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = line_create(ptr);
+	}
+	else
+		*cr = line_create(ptr);
+}
+
+t_coor	**recup(char *str)
 {
 	int		fd;
-	int		x;
-	char	**tab;
+	char	*ptr;
+	t_coor	**cr;
 
-	tab = 0;
+	if (!(cr = ft_memalloc(sizeof(t_coor*))))
+		return (NULL);
 	if ((fd = open(str, O_RDONLY)) == -1)
-		return (tab);
-	x = 0;
-	while (get_next_line(fd, &tab[x++]) == 1)
-		;
-	tab[x] = NULL;
-	return (tab);
+		return (NULL);
+	while (get_next_line(fd, &ptr) == 1)
+	{
+		line_add(cr, ptr);
+	}
+	close(fd);
+	return (cr);
 }

@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/07 15:58:35 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/10 15:59:59 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/10 18:28:26 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,19 @@ typedef struct	s_seg
 	int		y;
 }				t_seg;
 
+typedef struct	s_coor
+{
+	int				*tab;
+	int				start;
+	int				lenght;
+	struct s_coor	*next;
+}				t_coor;
+
 void			display_segment(t_seg *s, t_env *e, int a, int b);
 void			segment(t_env *e);
 int				key_hook(int keycode, t_env *e);
 int				mouse_hook(int button, int x, int y, t_env *e);
 int				expose_hook(t_env *e);
-char			**recup(char *str);
+t_coor			**recup(char *str);
 
 #endif
