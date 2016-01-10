@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   eeated: 2016/01/07 16:02:28 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/08 16:30:53 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/10 11:54:36 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	segment(t_env *e, int couleur)
 	x = e->x0;
 	y = e->y0;
 	dx = ft_abs(e->x1 - e->x0);
-	dy = ft_abs(e->y1 - e->y0);
+	dy = e->y1 - e->y0;
 	dp = 2 * dy - dx;
 	deltaE = 2 * dy;
 	deltaNE = 2 * (dy - dx);

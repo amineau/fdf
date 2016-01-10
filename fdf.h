@@ -6,12 +6,13 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/07 15:58:35 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/08 16:37:19 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/10 11:27:56 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
-# define LIBFT_H
+# define FDF_H
+
 # include "libft.h"
 # include "minilibx/mlx.h"
 # include <math.h>
