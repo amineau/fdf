@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 15:17:40 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/11 13:36:38 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/11 15:00:39 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,15 @@ int		space_digit(char *ptr, size_t *i)
 	return (space);
 }
 
+int		nbr_digit(int i, char *ptr)
+{
+	while (ptr[i] && ptr[i] != ' ')
+		i++;
+	while (ptr[i] && ptr[i] == ' ')
+		i++;
+	return (i);
+}
+
 t_coor	*line_create(char *ptr)
 {
 	size_t 	i;
@@ -54,13 +63,13 @@ t_coor	*line_create(char *ptr)
 	lenght = ft_strlen(ptr);
 	space = space_digit(ptr, &i);
 	cr->start = (i + 1) / space;
-	if (!(cr->tab = ft_memalloc(sizeof(int) * lenght / space)))
+	if (!(cr->tab = ft_memalloc(sizeof(int) * (lenght / space))))
 		return (NULL);
 	while (i < lenght)
 	{
 		cr->tab[cr->lenght] = ft_atoi(&ptr[i]);
+		i = nbr_digit(i, ptr);;
 		cr->lenght++;
-		i += space;
 	}
 	cr->next = NULL;
 	return (cr);

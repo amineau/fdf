@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 14:21:02 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/11 13:18:04 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/11 18:28:31 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 #include "stdio.h"
 
 
-int	key_hook(int keycode, t_env *e)
+int	key_press(int keycode, t_env *e)
 {
 	void	*i;
 	i = e->win;
 	printf("keycode = %d\n", keycode);
 	if (keycode == 53)
 		exit(0);
-	if (keycode >= 123 && keycode <= 126)
+	if ((keycode >= 123 && keycode <= 126) || keycode == 69 || keycode == 78)
 	{
 		if (keycode == 123)
 			e->omega -= M_PI / 90;
@@ -32,14 +32,24 @@ int	key_hook(int keycode, t_env *e)
 			e->alpha -= M_PI / 90;
 		if (keycode == 126)
 			e->alpha += M_PI / 90;
+		if (keycode == 69)
+			e->h -= 0.05;
+		if (keycode == 78)
+			e->h += 0.05;
 		mlx_clear_window(e->mlx, e->win);
 		display_map(e);
 	}
-
 	return (0);
 }
 
-int	mouse_hook(int button, int x, int y, t_env *e)
+int	motion_notify(int x, int y, t_env *e)
+{
+	e->centre_x = x;
+	e->centre_y = y;
+	return (0);
+}
+
+int	mouse_press(int button, int x, int y, t_env *e)
 {
 	if (button == 1)
 	{
