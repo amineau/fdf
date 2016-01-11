@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 14:21:02 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/10 14:35:46 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/11 11:59:43 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,34 @@ int	key_hook(int keycode, t_env *e)
 	printf("keycode = %d\n", keycode);
 	if (keycode == 53)
 		exit(0);
-	return (0);
+	if (keycode == 123)
+	{
+		e->omega -= 1;
+		mlx_clear_window(e->mlx, e->win);
+		display_map(e);
+	}
+	if (keycode == 124)
+	{
+		e->omega += 1;
+		mlx_clear_window(e->mlx, e->win);
+		display_map(e);
+	}
+	if (keycode == 125)
+	{
+		e->alpha -= 1;
+		mlx_clear_window(e->mlx, e->win);
+		display_map(e);
+	}
+	if (keycode == 126)
+	{
+		e->alpha += 1;
+		mlx_clear_window(e->mlx, e->win);
+		display_map(e);
+	}
+
+		return (0);
 }
+
 int	mouse_hook(int button, int x, int y, t_env *e)
 {
 	if (button == 1)
