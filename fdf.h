@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/07 15:58:35 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/11 11:52:34 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/11 13:22:17 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,11 @@ typedef struct	s_env
 	int		y0;
 	int		x1;
 	int		y1;
-	int		alpha;
-	int		omega;
-	int		k;
+	int		centre_x;
+	int		centre_y;
+	double	alpha;
+	double	omega;
+	double	k;
 	size_t	size_x;
 	size_t	size_y;
 	void	*mlx;
