@@ -6,21 +6,20 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/07 15:58:35 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/12 15:23:23 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/12 18:51:07 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# include "libft.h"
+# include "libft/libft.h"
 # include "minilibx/mlx.h"
 # include <math.h>
 
 typedef struct	s_coor
 {
 	int				*tab;
-	int				start;
 	int				lenght;
 	struct s_coor	*next;
 }				t_coor;
@@ -37,11 +36,11 @@ typedef struct	s_env
 	int		y0;
 	int		x1;
 	int		y1;
-	int		centre_x;
-	int		centre_y;
+	int		ctr_x;
+	int		ctr_y;
 	int		color;
-	double	alpha;
-	double	omega;
+	double	al;
+	double	om;
 	double	k;
 	double	h;
 	size_t	size_x;

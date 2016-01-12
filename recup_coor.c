@@ -6,72 +6,33 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 15:17:40 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/11 15:00:39 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/12 17:58:00 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		space_digit(char *ptr, size_t *i)
-{
-	int space;
-	int	j;
-
-	space = 0;
-	if (ptr[*i] == ' ')
-	{
-		while (ptr[*i] == ' ')
-			(*i)++;
-	}
-	j = *i;
-		while (ptr[j] != ' ')
-			j++;
-		while (ptr[j] && ptr[j] == ' ')
-		{
-			space++;
-			j++;
-		}
-		while (ptr[j] && ptr[j] != ' ')
-		{
-			space++;
-			j++;
-		}
-	return (space);
-}
-
-int		nbr_digit(int i, char *ptr)
-{
-	while (ptr[i] && ptr[i] != ' ')
-		i++;
-	while (ptr[i] && ptr[i] == ' ')
-		i++;
-	return (i);
-}
-
 t_coor	*line_create(char *ptr)
 {
-	size_t 	i;
-	size_t	lenght;
-	int		space;
+	int 	i;
+	char	**split;
 	t_coor	*cr;
 
 	if (!(cr = ft_memalloc(sizeof(t_coor))))
 		return (NULL);
-	i = 0;
-	space = 0;
 	cr->lenght = 0;
-	lenght = ft_strlen(ptr);
-	space = space_digit(ptr, &i);
-	cr->start = (i + 1) / space;
-	if (!(cr->tab = ft_memalloc(sizeof(int) * (lenght / space))))
-		return (NULL);
-	while (i < lenght)
-	{
-		cr->tab[cr->lenght] = ft_atoi(&ptr[i]);
-		i = nbr_digit(i, ptr);;
+	split = ft_strsplit(ptr, ' ');
+	while (split[cr->lenght] != NULL)
 		cr->lenght++;
+	if (!(cr->tab = ft_memalloc(sizeof(int) * cr->lenght)))
+		return (NULL);
+	i = 0;
+	while (i < cr->lenght)
+	{
+		cr->tab[i] = ft_atoi(split[i]);
+		i++;
 	}
-	cr->next = NULL;
+		cr->next = NULL;
 	return (cr);
 }
 
@@ -103,7 +64,7 @@ t_coor	**recup(char *str)
 	while (get_next_line(fd, &ptr) == 1)
 	{
 		line_add(cr, ptr);
-	ft_strdel(&ptr);
+		ft_strdel(&ptr);
 	}
 	close(fd);
 	return (cr);

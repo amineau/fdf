@@ -6,12 +6,21 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   eeated: 2016/01/07 16:02:28 by amineau           #+#    #+#              */
-/*   Updated: 2016/01/12 16:00:16 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/12 18:51:04 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include <stdio.h>
+
+void	calcul(t_env *e, int x, int y, t_coor *tmp)
+{
+	e->y1 = e->ctr_y + e->k * (cos(e->om) * y + sin(e->om) * x);
+	e->x1 = e->ctr_x + e->k * (sin(e->al) * (sin(e->om) * y - 
+				cos(e->om) * x) + cos(e->al) * tmp->tab[x] * e->h);
+	segment(e);
+}
+
 void	display_map(t_env *e)
 {
 	t_coor	*tmp;
@@ -23,30 +32,41 @@ void	display_map(t_env *e)
 	x = 0;
 	while (tmp)
 	{
-		x = tmp->start;
+		x = 0;
 		while (x < tmp->lenght)
 		{
-			e->y0 = e->centre_y + e->k * (cos(e->omega) * y + sin(e->omega) * x);
-			e->x0 = e->centre_x + e->k * (sin(e->alpha) * (sin(e->omega) * y - cos(e->omega) * x) + cos(e->alpha) * tmp->tab[x - tmp->start] * e->h);
+			e->y0 = e->ctr_y + e->k * (cos(e->om) * y + sin(e->om) * x);
+			e->x0 = e->ctr_x + e->k * (sin(e->al) * (sin(e->om) * y - 
+						cos(e->om) * x) + cos(e->al) * tmp->tab[x] * e->h);
 			if (x + 1 < tmp->lenght)
-			{
-				e->y1 = e->centre_y + e->k * (cos(e->omega) * y + sin(e->omega) * (x + 1));
-				e->x1 = e->centre_x + e->k * (sin(e->alpha) * (sin(e->omega) * y - cos(e->omega) * (x + 1)) + cos(e->alpha) * tmp->tab[x + 1 - tmp->start] * e->h);
-				segment(e);
-				//draw_line(e, color);
-			}
-			if (tmp->next)
-			{
-				e->y1 = e->centre_y + e->k * (cos(e->omega) * (y + 1) + sin(e->omega) * x);
-				e->x1 = e->centre_x + e->k * (sin(e->alpha) * (sin(e->omega) * (y + 1) - cos(e->omega) * x) + cos(e->alpha) * tmp->next->tab[x - tmp->next->start] * e->h);
-				segment(e);
-				//draw_line(e, color);
-			}
+				calcul(e, x + 1, y, tmp);
+			if(tmp->next)
+				calcul(e, x, y + 1, tmp->next);
 			x++;
 		}
 		y++;
 		tmp = tmp->next;
 	}
+}
+
+void	initialize(t_env *e, char *str)
+{
+	e->cr = recup(str);
+	e->x0 = 0;
+	e->x1 = 0;
+	e->y0 = 0;
+	e->y1 = 0;
+	e->size_x = 1000;
+	e->size_y = 1000;
+	e->ctr_x = 700;
+	e->ctr_y = 300;
+	e->om = M_PI / 12;
+	e->al = 8 * M_PI / 6;
+	e->k = 20;
+	e->h = 0;
+	e->color = 0xff00ff;
+	e->mlx = mlx_init();
+	e->win = mlx_new_window(e->mlx, e->size_x, e->size_y, "fdf");
 }
 
 int		main(int ac, char **av)
@@ -55,22 +75,7 @@ int		main(int ac, char **av)
 
 	if (ac == 2)
 	{
-		e.cr = recup(av[1]);
-		e.x0 = 0;
-		e.x1 = 0;
-		e.y0 = 0;
-		e.y1 = 0;
-		e.size_x = 1000;
-		e.size_y = 1000;
-		e.centre_x = 700;
-		e.centre_y = 300;
-		e.omega = M_PI / 12;
-		e.alpha = 8 * M_PI / 6;
-		e.k = 20;
-		e.h = 0;
-		e.color = 0xff00ff;
-		e.mlx = mlx_init();
-		e.win = mlx_new_window(e.mlx, e.size_x, e.size_y, "fdf");
+		initialize(&e, av[1]);
 		display_map(&e);
 		mlx_expose_hook(e.win, expose_hook, &e);
 		mlx_hook(e.win, 6, (1L >> 0), &motion_notify, &e);
