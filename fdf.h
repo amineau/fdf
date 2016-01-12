@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/07 15:58:35 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/11 17:15:14 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/12 08:52:49 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@ typedef struct	s_coor
 	int				lenght;
 	struct s_coor	*next;
 }				t_coor;
+
+typedef struct	s_point
+{
+	float	x;
+	float	y;
+}				t_point;
 
 typedef struct	s_env
 {
@@ -56,6 +62,7 @@ typedef struct	s_seg
 }				t_seg;
 
 void			display_segment(t_seg *s, t_env *e, int a, int b);
+void			draw_line(t_env *e, int color);
 void			display_map(t_env *e);
 void			segment(t_env *e);
 int				motion_notify(int x, int y, t_env *e);

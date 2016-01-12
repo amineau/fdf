@@ -8,7 +8,8 @@ FLAGS = -Wall -Werror -Wextra
 SRC = main.c \
 	  hook.c \
 	  segment.c \
-	  recup_coor.c
+	  recup_coor.c \
+	  antialiased.c
 
 OBJ = $(SRC:.c=.o)
 
