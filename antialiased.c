@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/12 08:42:28 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/12 09:47:55 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/12 15:14:17 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,7 @@
 
 void			pixel_put(float x, float y, int color, float opacity, t_env *e)
 {
-	int rr;
-	int	gg;
-	int bb;
-
-	color = (int)(color * opacity / 0x00ffff);
+	color += (int)(0xff * (1 -  opacity)) * 0x01000000;
 	mlx_pixel_put(e->mlx, e->win, x, y, color);
 }
 
@@ -79,7 +75,8 @@ void			draw_line(t_env *e, int color)
 	t_point	*a;
 	t_point	*b;
 
-	if ((a = ft_memalloc(sizeof(t_point))) && (b = ft_memalloc(sizeof(t_point))))
+	if ((a = ft_memalloc(sizeof(t_point))) 
+		&& (b = ft_memalloc(sizeof(t_point))))
 	{
 		a->x = e->x0;
 		a->y = e->y0;

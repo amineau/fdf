@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/07 15:58:35 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/12 08:52:49 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/12 15:23:23 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct	s_env
 	int		y1;
 	int		centre_x;
 	int		centre_y;
+	int		color;
 	double	alpha;
 	double	omega;
 	double	k;

@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 14:21:02 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/11 18:28:31 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/12 16:00:14 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ int	key_press(int keycode, t_env *e)
 {
 	void	*i;
 	i = e->win;
-	printf("keycode = %d\n", keycode);
+	printf("keycode = %d\ncolor = %d\nh = %f\n", keycode, e->color, e->h);
 	if (keycode == 53)
 		exit(0);
-	if ((keycode >= 123 && keycode <= 126) || keycode == 69 || keycode == 78)
+	if ((keycode >= 123 && keycode <= 126) || keycode == 69 || keycode == 78 || (keycode >= 18 && keycode <= 19))
 	{
 		if (keycode == 123)
 			e->omega -= M_PI / 90;
@@ -36,6 +36,10 @@ int	key_press(int keycode, t_env *e)
 			e->h -= 0.05;
 		if (keycode == 78)
 			e->h += 0.05;
+		if (keycode == 18 && e->color > 0)
+			e->color -= 0x0f0f0f;
+		if (keycode == 19 && e->color < 0xffffff)
+			e->color += 0x0f0f0f;
 		mlx_clear_window(e->mlx, e->win);
 		display_map(e);
 	}
