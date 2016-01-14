@@ -9,7 +9,7 @@ SRC = main.c \
 	  hook.c \
 	  segment.c \
 	  recup_coor.c \
-	  antialiased.c
+	  error.c
 
 OBJ = $(SRC:.c=.o)
 

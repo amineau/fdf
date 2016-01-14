@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/07 15:58:35 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/12 18:51:07 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/14 14:38:08 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,12 @@ typedef struct	s_seg
 }				t_seg;
 
 void			display_segment(t_seg *s, t_env *e, int a, int b);
-void			draw_line(t_env *e, int color);
 void			display_map(t_env *e);
 void			segment(t_env *e);
+void			split_clear(char **split);
+void			coor_clear(t_coor **cr);
+void			recup_error(int i, t_coor **cr);
+int				test_map(t_coor **cr);
 int				motion_notify(int x, int y, t_env *e);
 int				key_press(int keycode, t_env *e);
 int				mouse_press(int button, int x, int y, t_env *e);
