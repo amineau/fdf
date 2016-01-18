@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 14:16:45 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/18 14:51:44 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/18 21:14:41 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	segment(t_env *e)
 
 void	display_segment(t_seg *s, t_env *e, int a, int b)
 {
-	e->img_addr[s->x * *e->size_line + s->y * *e->bits_pix / 8] = 0;
+		if (s->x >= 0 && s->x <= (int)e->size_x && s->y >= 0 && s->y <= (int)e->size_y)
+			e->img_addr[s->y * e->size_line + s->x * e->bits_pix / 8] = 170;
 
 	while (s->x != e->x1 || s->y != e->y1)
 	{
@@ -60,7 +61,7 @@ void	display_segment(t_seg *s, t_env *e, int a, int b)
 			s->x += a;
 			s->y += b;
 		}
-		e->img_addr[s->x * *e->size_line + s->y * *e->bits_pix / 8] = 0;
+		if (s->x >= 0 && s->x <= (int)e->size_x && s->y >= 0 && s->y <= (int)e->size_y)
+			e->img_addr[s->y * e->size_line + s->x * e->bits_pix / 8] = 170;
 	}
-	mlx_put_image_to_window(e->mlx, e->win, e->img, e->ctr_x, e->ctr_y);
 }

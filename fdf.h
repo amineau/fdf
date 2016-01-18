@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/07 15:58:35 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/18 14:09:24 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/18 21:27:04 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,12 @@ typedef struct	s_env
 	int		y1;
 	int		ctr_x;
 	int		ctr_y;
+	int		pos_x;
+	int		pos_y;
 	int		color;
 	double	al;
 	double	om;
+	double	coeff;
 	double	k;
 	double	h;
 	size_t	size_x;
@@ -49,9 +52,9 @@ typedef struct	s_env
 	void	*win;
 	void	*img;
 	char	*img_addr;
-	int		*bits_pix;
-	int		*size_line;
-	int		*end;
+	int		bits_pix;
+	int		size_line;
+	int		end;
 	t_coor	**cr;
 }				t_env;
 

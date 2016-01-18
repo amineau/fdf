@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   eeated: 2016/01/07 16:02:28 by amineau           #+#    #+#              */
-/*   Updated: 2016/01/18 11:59:29 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/18 22:08:14 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	calcul(t_env *e, int x, int y, t_coor *tmp)
 {
-	e->y1 = e->ctr_y + e->k * (cos(e->om) * y + sin(e->om) * (x - tmp->lenght / 2));
-	e->x1 = e->ctr_x + e->k * (sin(e->al) * (sin(e->om) * y - 
-				cos(e->om) * (x - tmp->lenght / 2)) + cos(e->al) * tmp->tab[x] * e->h);
+	e->y1 = e->ctr_y + e->coeff * (e->ctr_y - e->pos_y + e->k * (cos(e->om) * y + sin(e->om) * (x - tmp->lenght / 2)));
+	e->x1 = e->ctr_x + e->coeff * (e->ctr_x - e->pos_x + e->k * (sin(e->al) * (sin(e->om) * y - 
+				cos(e->om) * (x - tmp->lenght / 2)) + cos(e->al) * tmp->tab[x] * e->h));
 	segment(e);
 }
 
@@ -49,9 +49,9 @@ void	display_map(t_env *e)
 		x = 0;
 		while (x < tmp->lenght)
 		{
-			e->y0 = e->ctr_y + e->k * (cos(e->om) * y + sin(e->om) * (x - tmp->lenght / 2));
-			e->x0 = e->ctr_x + e->k * (sin(e->al) * (sin(e->om) * y - 
-						cos(e->om) * (x - tmp->lenght / 2)) + cos(e->al) * tmp->tab[x] * e->h);
+			e->y0 = e->ctr_y + e->coeff * (e->ctr_y - e->pos_y + e->k * (cos(e->om) * y + sin(e->om) * (x - tmp->lenght / 2)));
+			e->x0 = e->ctr_x + e->coeff * (e->ctr_x - e->pos_x + e->k * (sin(e->al) * (sin(e->om) * y - 
+						cos(e->om) * (x - tmp->lenght / 2)) + cos(e->al) * tmp->tab[x] * e->h));
 			if (x + 1 < tmp->lenght)
 				calcul(e, x + 1, y, tmp);
 			if(tmp->next)
@@ -74,11 +74,14 @@ void	initialize(t_env *e, char *str)
 	e->y1 = 0;
 	e->size_x = 1000;
 	e->size_y = 1000;
+	e->coeff = 1;
 	e->k = fmax(e->size_x, e->size_y) / (fmax(len_y(e->cr), tmp->lenght) * 1.5);
 	e->ctr_x = e->size_x / 2;
 	e->ctr_y = e->size_y / 2;
-	e->om = M_PI / 12;
-	e->al = 16 * M_PI / 12;
+	e->pos_x = e->ctr_x;
+	e->pos_y = e->ctr_y;
+	e->om = M_PI / 6;
+	e->al = 4 * M_PI / 3;
 	e->h = 0;
 	e->color = 0x00ffff;
 	e->mlx = mlx_init();
