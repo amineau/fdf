@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 14:16:45 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/12 15:38:13 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/18 14:51:44 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	segment(t_env *e)
 
 void	display_segment(t_seg *s, t_env *e, int a, int b)
 {
-	mlx_pixel_put(e->mlx, e->win, s->x, s->y, e->color);
+	e->img_addr[s->x * *e->size_line + s->y * *e->bits_pix / 8] = 0;
+
 	while (s->x != e->x1 || s->y != e->y1)
 	{
 		if (s->dp <= 0)
@@ -59,6 +60,7 @@ void	display_segment(t_seg *s, t_env *e, int a, int b)
 			s->x += a;
 			s->y += b;
 		}
-		mlx_pixel_put(e->mlx, e->win, s->x, s->y, e->color);
+		e->img_addr[s->x * *e->size_line + s->y * *e->bits_pix / 8] = 0;
 	}
+	mlx_put_image_to_window(e->mlx, e->win, e->img, e->ctr_x, e->ctr_y);
 }

@@ -6,12 +6,11 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   eeated: 2016/01/07 16:02:28 by amineau           #+#    #+#              */
-/*   Updated: 2016/01/14 16:29:29 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/18 11:59:29 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include <stdio.h>
 
 void	calcul(t_env *e, int x, int y, t_coor *tmp)
 {
@@ -93,7 +92,6 @@ int		main(int ac, char **av)
 	if (ac == 2)
 	{
 		initialize(&e, av[1]);
-		display_map(&e);
 		mlx_expose_hook(e.win, expose_hook, &e);
 		mlx_hook(e.win, 6, (1L >> 0), &motion_notify, &e);
 		mlx_hook(e.win, 4, (1L >> 0), &mouse_press, &e);
