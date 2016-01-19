@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/07 15:58:35 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/18 21:27:04 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/19 18:58:37 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,10 @@ typedef struct	s_env
 {
 	int		x0;
 	int		y0;
+	double	z0;
 	int		x1;
 	int		y1;
+	double	z1;
 	int		ctr_x;
 	int		ctr_y;
 	int		pos_x;

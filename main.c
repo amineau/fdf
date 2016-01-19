@@ -6,17 +6,18 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   eeated: 2016/01/07 16:02:28 by amineau           #+#    #+#              */
-/*   Updated: 2016/01/18 22:08:14 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/19 18:58:31 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
+#include <stdio.h>
 void	calcul(t_env *e, int x, int y, t_coor *tmp)
 {
-	e->y1 = e->ctr_y + e->coeff * (e->ctr_y - e->pos_y + e->k * (cos(e->om) * y + sin(e->om) * (x - tmp->lenght / 2)));
-	e->x1 = e->ctr_x + e->coeff * (e->ctr_x - e->pos_x + e->k * (sin(e->al) * (sin(e->om) * y - 
-				cos(e->om) * (x - tmp->lenght / 2)) + cos(e->al) * tmp->tab[x] * e->h));
+	e->z1 = tmp->tab[x];
+	e->y1 = e->ctr_y + e->coeff * (e->k * (cos(e->om) * y + sin(e->om) * (x - tmp->lenght / 2)));
+	e->x1 = e->ctr_x + e->coeff * (e->k * (sin(e->al) * (sin(e->om) * y - 
+				cos(e->om) * (x - tmp->lenght / 2)) + cos(e->al) * e->z1 * e->h));
 	segment(e);
 }
 
@@ -49,9 +50,10 @@ void	display_map(t_env *e)
 		x = 0;
 		while (x < tmp->lenght)
 		{
-			e->y0 = e->ctr_y + e->coeff * (e->ctr_y - e->pos_y + e->k * (cos(e->om) * y + sin(e->om) * (x - tmp->lenght / 2)));
-			e->x0 = e->ctr_x + e->coeff * (e->ctr_x - e->pos_x + e->k * (sin(e->al) * (sin(e->om) * y - 
-						cos(e->om) * (x - tmp->lenght / 2)) + cos(e->al) * tmp->tab[x] * e->h));
+			e->z0 = tmp->tab[x];
+			e->y0 = e->ctr_y + e->coeff * (e->k * (cos(e->om) * y + sin(e->om) * (x - tmp->lenght / 2)));
+			e->x0 = e->ctr_x + e->coeff * (e->k * (sin(e->al) * (sin(e->om) * y - 
+						cos(e->om) * (x - tmp->lenght / 2)) + cos(e->al) * e->z0 * e->h));
 			if (x + 1 < tmp->lenght)
 				calcul(e, x + 1, y, tmp);
 			if(tmp->next)
