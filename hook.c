@@ -6,13 +6,11 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 14:21:02 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/19 18:58:33 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/19 20:39:58 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-#include <stdio.h>
 
 void	image(t_env *e)
 {
@@ -47,7 +45,7 @@ int	key_press(int keycode, t_env *e)
 	if (keycode == 19 && e->color < 0xffffff)
 		e->color += 0x0f0f0f;
 	image(e);
-	printf("keycode = %d\ncolor = %d\nh = %f\n", keycode, e->color, e->h);
+//	printf("keycode = %d\ncolor = %d\nh = %f\n", keycode, e->color, e->h);
 	return (0);
 }
 
@@ -78,7 +76,7 @@ int	mouse_press(int button, int x, int y, t_env *e)
 		e->ctr_y = (e->ctr_y - e->pos_y) / 1.1 + e->pos_y;
 	}
 		image(e);
-	printf("button = %d\nx = %d || y = %d\nctr_x = %d || ctr_y = %d\n", button, x, y, e->ctr_x, e->ctr_y);
+//	printf("button = %d\nx = %d || y = %d\nctr_x = %d || ctr_y = %d\n", button, x, y, e->ctr_x, e->ctr_y);
 	return (0);
 }
 

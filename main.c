@@ -6,12 +6,12 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   eeated: 2016/01/07 16:02:28 by amineau           #+#    #+#              */
-/*   Updated: 2016/01/19 18:58:31 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/19 20:39:38 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include <stdio.h>
+
 void	calcul(t_env *e, int x, int y, t_coor *tmp)
 {
 	e->z1 = tmp->tab[x];
