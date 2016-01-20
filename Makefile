@@ -9,7 +9,8 @@ SRC = main.c \
 	  hook.c \
 	  segment.c \
 	  recup_coor.c \
-	  error.c
+	  error.c \
+	  display.c
 
 OBJ = $(SRC:.c=.o)
 

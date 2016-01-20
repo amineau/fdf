@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 14:16:45 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/20 14:57:17 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/20 17:25:31 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,17 @@ void	couleur(t_env *e, t_seg *s)
 {
 	double	h;
 
-	if (s->x >= 0 && s->x <= (int)e->size_x
-			&& s->y >= 0 && s->y <= (int)e->size_y)
+	if (s->x >= 0 && s->x < (int)e->size_x
+			&& s->y >= 0 && s->y < (int)e->size_y)
 	{
 		if (fabs(e->h) <= 1)
 			h = fabs((e->color / 10) * e->h * (e->z0 + (e->z1 - e->z0) *
-			(hypot(e->x0 - s->x, e->y0 - s->y) /
-			hypot(e->x0 - e->x1, e->y0 - e->y1)))) /e->max;
+			(hypot(e->x0 - s->x, e->y0 - s->y)
+			/ hypot(e->x0 - e->x1, e->y0 - e->y1)))) / e->max;
 		else
 			h = fabs((e->color / 10) * (e->z0 + (e->z1 - e->z0) * (hypot(e->x0
-			- s->x, e->y0 - s->y) / hypot(e->x0 - e->x1, e->y0 - e->y1)))) / e->max;
+			- s->x, e->y0 - s->y) / hypot(e->x0 - e->x1, e->y0 - e->y1))))
+			/ e->max;
 		addr_color(e, s, h);
 	}
 }

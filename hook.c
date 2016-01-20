@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 14:21:02 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/20 15:55:33 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/20 16:57:53 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	image(t_env *e)
 	display_map(e);
 	mlx_put_image_to_window(e->mlx, e->win, e->img, 0, 0);
 }
+
 int		key_press(int keycode, t_env *e)
 {
 	if (keycode == 53)
