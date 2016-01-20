@@ -6,12 +6,12 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 14:21:02 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/20 12:02:46 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/20 15:55:33 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include <stdio.h>
+
 void	image(t_env *e)
 {
 	if (e->img)
@@ -42,7 +42,6 @@ int		key_press(int keycode, t_env *e)
 		e->color -= 2;
 	if (keycode == 19 && e->color < 254)
 		e->color += 2;
-	printf("om : %f || al : %f\n",e->om / M_PI, e->al / M_PI);
 	image(e);
 	return (0);
 }

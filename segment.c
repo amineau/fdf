@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 14:16:45 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/20 09:45:40 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/20 14:57:17 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ void	couleur(t_env *e, t_seg *s)
 		if (fabs(e->h) <= 1)
 			h = fabs((e->color / 10) * e->h * (e->z0 + (e->z1 - e->z0) *
 			(hypot(e->x0 - s->x, e->y0 - s->y) /
-			hypot(e->x0 - e->x1, e->y0 - e->y1))));
+			hypot(e->x0 - e->x1, e->y0 - e->y1)))) /e->max;
 		else
 			h = fabs((e->color / 10) * (e->z0 + (e->z1 - e->z0) * (hypot(e->x0
-			- s->x, e->y0 - s->y) / hypot(e->x0 - e->x1, e->y0 - e->y1))));
+			- s->x, e->y0 - s->y) / hypot(e->x0 - e->x1, e->y0 - e->y1)))) / e->max;
 		addr_color(e, s, h);
 	}
 }

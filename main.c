@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/20 09:18:52 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/20 12:02:44 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/20 15:55:31 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 void	calcul(t_env *e, int x, int y, t_coor *tmp)
 {
-	if (e->max < fabs(e->z1 = tmp->tab[x]))
-		e->max = fabs(e->z1);
+	e->z1 = tmp->tab[x];
 	e->x1 = e->ctr_x + e->cf * (e->k * (cos(e->om) * y + sin(e->om) *
 	(x - tmp->len / 2)));
 	e->y1 = e->ctr_y + e->cf * (e->k * (sin(e->al) * (sin(e->om) * y -
-			cos(e->om) * (x - tmp->len / 2)) + cos(e->al) * e->z1 * e->h));
+	cos(e->om) * (x - tmp->len / 2)) + cos(e->al) * e->z1 * e->h));
 	segment(e);
 }
 
@@ -51,10 +50,9 @@ void	display_map(t_env *e)
 		x = 0;
 		while (x < tmp->len)
 		{
-	if (e->max < fabs(e->z0 = tmp->tab[x]))
-		e->max = fabs(e->z0);
+			e->z0 = tmp->tab[x];
 			e->x0 = e->ctr_x + e->cf * (e->k * (cos(e->om) * y +
-						sin(e->om) * (x - tmp->len / 2)));
+			sin(e->om) * (x - tmp->len / 2)));
 			e->y0 = e->ctr_y + e->cf * (e->k * (sin(e->al) * (sin(e->om) * y -
 			cos(e->om) * (x - tmp->len / 2)) + cos(e->al) * e->z0 * e->h));
 			if (x + 1 < tmp->len)
@@ -68,6 +66,28 @@ void	display_map(t_env *e)
 	}
 }
 
+double		find_max(t_coor **cr)
+{
+	t_coor	*tmp;
+	int		i;
+	double		max;
+
+	tmp = *cr;
+	max = 0;
+	while (tmp)
+	{
+		i = 0;
+		while (i < tmp->len)
+		{
+			if (max < fabs((double)tmp->tab[i]))
+				max = fabs((double)tmp->tab[i]);
+			i++;
+		}
+		tmp = tmp->next;
+	}
+	return (max / 10);
+}
+
 void	initialize(t_env *e, char *str)
 {
 	t_coor	*tmp;
@@ -78,7 +98,7 @@ void	initialize(t_env *e, char *str)
 	e->x1 = 0;
 	e->y0 = 0;
 	e->y1 = 0;
-	e->max = 0;
+	e->max = find_max(e->cr);
 	e->size_x = 1000;
 	e->size_y = 1000;
 	e->cf = 1;
