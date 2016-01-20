@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 14:16:45 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/19 20:38:44 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/20 09:45:40 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,47 +27,54 @@ void	segment(t_env *e)
 	if (s.dx >= s.dy)
 	{
 		s.dp = 2 * s.dy - s.dx;
-		s.deltaE = 2 * s.dy;
-		s.deltaNE = 2 * (s.dy - s.dx);
+		s.deltae = 2 * s.dy;
+		s.deltane = 2 * (s.dy - s.dx);
 		display_segment(&s, e, a, b);
 	}
 	else
 	{
 		s.dp = 2 * s.dx - s.dy;
-		s.deltaE = 2 * s.dx;
-		s.deltaNE = 2 * (s.dx - s.dy);
+		s.deltae = 2 * s.dx;
+		s.deltane = 2 * (s.dx - s.dy);
 		display_segment(&s, e, a, b);
 	}
 }
+
+void	addr_color(t_env *e, t_seg *s, double h)
+{
+	if (e->h > 0)
+	{
+		e->img_addr[s->y * e->size_line + s->x * e->bits_pix / 8] = h / 4;
+		e->img_addr[s->y * e->size_line +
+			s->x * e->bits_pix / 8 + 1] = e->color - h;
+		e->img_addr[s->y * e->size_line +
+			s->x * e->bits_pix / 8 + 2] = e->color;
+	}
+	else
+	{
+		e->img_addr[s->y * e->size_line + s->x * e->bits_pix / 8] = 0;
+		e->img_addr[s->y * e->size_line +
+			s->x * e->bits_pix / 8 + 1] = e->color - h;
+		e->img_addr[s->y * e->size_line +
+			s->x * e->bits_pix / 8 + 2] = e->color - h;
+	}
+}
+
 void	couleur(t_env *e, t_seg *s)
 {
 	double	h;
 
-	if (s->x >= 0 && s->x <= (int)e->size_x && s->y >= 0 && s->y <= (int)e->size_y)
+	if (s->x >= 0 && s->x <= (int)e->size_x
+			&& s->y >= 0 && s->y <= (int)e->size_y)
 	{
-		int	facteur;
-		int color;
-
-		facteur = 20;
-		color = 200;
 		if (fabs(e->h) <= 1)
-			h = fabs(facteur * e->h * (e->z0 + (e->z1 - e->z0) * 
-			(hypot(e->x0 - s->x, e->y0 - s->y) / hypot(e->x0 - e->x1, e->y0 - e->y1))));
-		else	
-			h = fabs(facteur * (e->z0 + (e->z1 - e->z0) * (hypot(e->x0 - 
-			s->x, e->y0 - s->y) / hypot(e->x0 - e->x1, e->y0 - e->y1))));
-		if (e->h > 0)
-		{
-		e->img_addr[s->y * e->size_line + s->x * e->bits_pix / 8] = h / 4;
-		e->img_addr[s->y * e->size_line + s->x * e->bits_pix / 8 + 1] = color - h;
-		e->img_addr[s->y * e->size_line + s->x * e->bits_pix / 8 + 2] = color;
-		}
+			h = fabs((e->color / 10) * e->h * (e->z0 + (e->z1 - e->z0) *
+			(hypot(e->x0 - s->x, e->y0 - s->y) /
+			hypot(e->x0 - e->x1, e->y0 - e->y1))));
 		else
-		{
-		e->img_addr[s->y * e->size_line + s->x * e->bits_pix / 8] = 0;
-		e->img_addr[s->y * e->size_line + s->x * e->bits_pix / 8 + 1] = color - h;
-		e->img_addr[s->y * e->size_line + s->x * e->bits_pix / 8 + 2] = color - h;
-		}
+			h = fabs((e->color / 10) * (e->z0 + (e->z1 - e->z0) * (hypot(e->x0
+			- s->x, e->y0 - s->y) / hypot(e->x0 - e->x1, e->y0 - e->y1))));
+		addr_color(e, s, h);
 	}
 }
 
@@ -78,7 +85,7 @@ void	display_segment(t_seg *s, t_env *e, int a, int b)
 	{
 		if (s->dp <= 0)
 		{
-			s->dp += s->deltaE;
+			s->dp += s->deltae;
 			if (s->dx >= s->dy)
 				s->x += a;
 			else
@@ -86,7 +93,7 @@ void	display_segment(t_seg *s, t_env *e, int a, int b)
 		}
 		else
 		{
-			s->dp += s->deltaNE;
+			s->dp += s->deltane;
 			s->x += a;
 			s->y += b;
 		}

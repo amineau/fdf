@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   eeated: 2016/01/07 16:02:28 by amineau           #+#    #+#              */
-/*   Updated: 2016/01/19 20:39:38 by amineau          ###   ########.fr       */
+/*   Created: 2016/01/20 09:18:52 by amineau           #+#    #+#             */
+/*   Updated: 2016/01/20 09:53:19 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,16 @@
 void	calcul(t_env *e, int x, int y, t_coor *tmp)
 {
 	e->z1 = tmp->tab[x];
-	e->y1 = e->ctr_y + e->coeff * (e->k * (cos(e->om) * y + sin(e->om) * (x - tmp->lenght / 2)));
-	e->x1 = e->ctr_x + e->coeff * (e->k * (sin(e->al) * (sin(e->om) * y - 
-				cos(e->om) * (x - tmp->lenght / 2)) + cos(e->al) * e->z1 * e->h));
+	e->y1 = e->ctr_y + e->cf * (e->k * (cos(e->om) * y + sin(e->om) *
+	(x - tmp->len / 2)));
+	e->x1 = e->ctr_x + e->cf * (e->k * (sin(e->al) * (sin(e->om) * y -
+			cos(e->om) * (x - tmp->len / 2)) + cos(e->al) * e->z1 * e->h));
 	segment(e);
 }
 
 int		len_y(t_coor **cr)
 {
-	t_coor *tmp;
+	t_coor	*tmp;
 	int		y;
 
 	y = 0;
@@ -39,24 +40,24 @@ int		len_y(t_coor **cr)
 void	display_map(t_env *e)
 {
 	t_coor	*tmp;
-	int y;
-	int	x;
+	int		y;
+	int		x;
 
 	tmp = *e->cr;
 	y = len_y(e->cr);
-	x = 0;
 	while (tmp)
 	{
 		x = 0;
-		while (x < tmp->lenght)
+		while (x < tmp->len)
 		{
 			e->z0 = tmp->tab[x];
-			e->y0 = e->ctr_y + e->coeff * (e->k * (cos(e->om) * y + sin(e->om) * (x - tmp->lenght / 2)));
-			e->x0 = e->ctr_x + e->coeff * (e->k * (sin(e->al) * (sin(e->om) * y - 
-						cos(e->om) * (x - tmp->lenght / 2)) + cos(e->al) * e->z0 * e->h));
-			if (x + 1 < tmp->lenght)
+			e->y0 = e->ctr_y + e->cf * (e->k * (cos(e->om) * y +
+						sin(e->om) * (x - tmp->len / 2)));
+			e->x0 = e->ctr_x + e->cf * (e->k * (sin(e->al) * (sin(e->om) * y -
+			cos(e->om) * (x - tmp->len / 2)) + cos(e->al) * e->z0 * e->h));
+			if (x + 1 < tmp->len)
 				calcul(e, x + 1, y, tmp);
-			if(tmp->next)
+			if (tmp->next)
 				calcul(e, x, y + 1, tmp->next);
 			x++;
 		}
@@ -67,7 +68,8 @@ void	display_map(t_env *e)
 
 void	initialize(t_env *e, char *str)
 {
-	t_coor *tmp;
+	t_coor	*tmp;
+
 	e->cr = recup(str);
 	tmp = *e->cr;
 	e->x0 = 0;
@@ -76,16 +78,16 @@ void	initialize(t_env *e, char *str)
 	e->y1 = 0;
 	e->size_x = 1000;
 	e->size_y = 1000;
-	e->coeff = 1;
-	e->k = fmax(e->size_x, e->size_y) / (fmax(len_y(e->cr), tmp->lenght) * 1.5);
+	e->cf = 1;
+	e->k = fmax(e->size_x, e->size_y) / (fmax(len_y(e->cr), tmp->len) * 1.5);
 	e->ctr_x = e->size_x / 2;
 	e->ctr_y = e->size_y / 2;
 	e->pos_x = e->ctr_x;
 	e->pos_y = e->ctr_y;
-	e->om = M_PI / 6;
-	e->al = 4 * M_PI / 3;
+	e->om = -M_PI / 20;
+	e->al = 19 * M_PI / 12;
 	e->h = 0;
-	e->color = 0x00ffff;
+	e->color = 200;
 	e->mlx = mlx_init();
 	e->win = mlx_new_window(e->mlx, e->size_x, e->size_y, "fdf");
 }

@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/07 15:58:35 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/19 18:58:37 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/20 09:57:28 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 typedef struct	s_coor
 {
 	int				*tab;
-	int				lenght;
+	int				len;
 	struct s_coor	*next;
 }				t_coor;
 
@@ -34,10 +34,10 @@ typedef struct	s_env
 {
 	int		x0;
 	int		y0;
-	double	z0;
+	int		z0;
 	int		x1;
 	int		y1;
-	double	z1;
+	int		z1;
 	int		ctr_x;
 	int		ctr_y;
 	int		pos_x;
@@ -45,7 +45,7 @@ typedef struct	s_env
 	int		color;
 	double	al;
 	double	om;
-	double	coeff;
+	double	cf;
 	double	k;
 	double	h;
 	size_t	size_x;
@@ -65,8 +65,8 @@ typedef struct	s_seg
 	int		dx;
 	int		dy;
 	int		dp;
-	int		deltaE;
-	int		deltaNE;
+	int		deltae;
+	int		deltane;
 	int		x;
 	int		y;
 }				t_seg;

@@ -20,7 +20,7 @@ all: $(NAME)
 $(NAME):
 	make -C $(LFTPATCH)
 	make -C $(LMLXPATCH)
-	$(CC) $(FLAGS) -I$(LFTPATCH) -c $(SRC) 
+	$(CC) $(FLAGS) -c $(SRC) 
 	$(CC) $(OBJ) $(LIBS) -o $(NAME)
 
 clean:
