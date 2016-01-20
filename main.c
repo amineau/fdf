@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/20 09:18:52 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/20 09:53:19 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/20 12:02:44 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 void	calcul(t_env *e, int x, int y, t_coor *tmp)
 {
-	e->z1 = tmp->tab[x];
-	e->y1 = e->ctr_y + e->cf * (e->k * (cos(e->om) * y + sin(e->om) *
+	if (e->max < fabs(e->z1 = tmp->tab[x]))
+		e->max = fabs(e->z1);
+	e->x1 = e->ctr_x + e->cf * (e->k * (cos(e->om) * y + sin(e->om) *
 	(x - tmp->len / 2)));
-	e->x1 = e->ctr_x + e->cf * (e->k * (sin(e->al) * (sin(e->om) * y -
+	e->y1 = e->ctr_y + e->cf * (e->k * (sin(e->al) * (sin(e->om) * y -
 			cos(e->om) * (x - tmp->len / 2)) + cos(e->al) * e->z1 * e->h));
 	segment(e);
 }
@@ -50,10 +51,11 @@ void	display_map(t_env *e)
 		x = 0;
 		while (x < tmp->len)
 		{
-			e->z0 = tmp->tab[x];
-			e->y0 = e->ctr_y + e->cf * (e->k * (cos(e->om) * y +
+	if (e->max < fabs(e->z0 = tmp->tab[x]))
+		e->max = fabs(e->z0);
+			e->x0 = e->ctr_x + e->cf * (e->k * (cos(e->om) * y +
 						sin(e->om) * (x - tmp->len / 2)));
-			e->x0 = e->ctr_x + e->cf * (e->k * (sin(e->al) * (sin(e->om) * y -
+			e->y0 = e->ctr_y + e->cf * (e->k * (sin(e->al) * (sin(e->om) * y -
 			cos(e->om) * (x - tmp->len / 2)) + cos(e->al) * e->z0 * e->h));
 			if (x + 1 < tmp->len)
 				calcul(e, x + 1, y, tmp);
@@ -76,6 +78,7 @@ void	initialize(t_env *e, char *str)
 	e->x1 = 0;
 	e->y0 = 0;
 	e->y1 = 0;
+	e->max = 0;
 	e->size_x = 1000;
 	e->size_y = 1000;
 	e->cf = 1;
@@ -84,8 +87,8 @@ void	initialize(t_env *e, char *str)
 	e->ctr_y = e->size_y / 2;
 	e->pos_x = e->ctr_x;
 	e->pos_y = e->ctr_y;
-	e->om = -M_PI / 20;
-	e->al = 19 * M_PI / 12;
+	e->om = M_PI / 4;
+	e->al = 3 * M_PI / 4;
 	e->h = 0;
 	e->color = 200;
 	e->mlx = mlx_init();
