@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/07 15:58:35 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/20 17:09:18 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/21 10:58:46 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void			segment(t_env *e);
 void			split_clear(char **split);
 void			coor_clear(t_coor **cr);
 void			recup_error(int i, t_coor **cr);
+void			clear_all(t_env *e);
 int				len_y(t_coor **cr);
 int				test_map(t_coor **cr);
 int				motion_notify(int x, int y, t_env *e);

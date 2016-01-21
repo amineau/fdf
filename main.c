@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/20 09:18:52 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/20 17:06:55 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/21 11:15:46 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,7 @@ int		main(int ac, char **av)
 		mlx_hook(e.win, 2, (1L >> 0), &key_press, &e);
 		mlx_loop(e.mlx);
 	}
+	else
+		ft_putendl("error : invalid number of arguments");
 	return (0);
 }

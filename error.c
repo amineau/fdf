@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 14:50:31 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/20 09:36:23 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/21 10:59:12 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,17 @@ int		test_map(t_coor **cr)
 		tmp = tmp->next;
 	}
 	return (0);
+}
+
+void	clear_all(t_env *e)
+{
+	coor_clear(e->cr);
+	free(e->cr);
+	ft_memdel(&e->mlx);
+	ft_memdel(&e->win);
+	ft_memdel(&e->img);
+	ft_strdel(&e->img_addr);
+	exit(0);
 }
 
 void	recup_error(int i, t_coor **cr)

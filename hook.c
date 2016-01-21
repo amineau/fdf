@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 14:21:02 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/20 16:57:53 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/21 10:57:39 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	image(t_env *e)
 int		key_press(int keycode, t_env *e)
 {
 	if (keycode == 53)
-		exit(0);
+		clear_all(e);
 	if (keycode == 123)
 		e->om -= M_PI / 90;
 	if (keycode == 124)
