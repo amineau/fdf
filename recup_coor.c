@@ -6,7 +6,7 @@
 /*   By: amineau <amineau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 15:17:40 by amineau           #+#    #+#             */
-/*   Updated: 2016/01/20 09:29:52 by amineau          ###   ########.fr       */
+/*   Updated: 2016/01/22 10:38:53 by amineau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ t_coor	*line_create(char *ptr)
 	if (!(cr = ft_memalloc(sizeof(t_coor))))
 		return (NULL);
 	cr->len = 0;
-	if (!(split = ft_strsplit(ptr, ' ')))
+	if (ptr[0] == '\0' || ptr[0] == '\n' || !(split = ft_strsplit(ptr, ' ')))
 		return (NULL);
-	while (split[cr->len] != NULL)
+	while (split[cr->len])
 		cr->len++;
 	if (!(cr->tab = ft_memalloc(sizeof(int) * cr->len)))
 	{
@@ -51,12 +51,12 @@ void	line_add(t_coor **cr, char *ptr)
 		while (tmp->next)
 			tmp = tmp->next;
 		if (!(tmp->next = line_create(ptr)))
-			recup_error(3, cr);
+			recup_error(5, cr);
 	}
 	else
 	{
 		if (!(*cr = line_create(ptr)))
-			recup_error(3, cr);
+			recup_error(5, cr);
 	}
 }
 
